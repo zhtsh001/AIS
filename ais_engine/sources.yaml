@@ -1,0 +1,325 @@
+# AIS 全局高价值信源库 (Master Sources Database)
+# 手动维护，作为系统最核心的数据资产
+#
+# -------------------------------------------------------------
+# 【架构说明 - Data Schema】
+# - id: 唯一标识符 (全局唯一, 推荐使用 类别_名称 格式)
+# - name: 信源显示名称
+# - type: 接入类型 (rss | arxiv | github_trending | twitter_user | web_scrape | newsletter)
+# - url: 抓取地址 / 分类 Tag / API Endpoint
+# - domain: 宏观领域 (AI | Web3 | Biotech | Tech_Biz | Macro | Science)
+# - tags: [标签列表] (颗粒度更细的标签，用于后续精准匹配)
+# - priority: 权重参数 (1-5, 5为最高。核心 Alpha 信源设为 4-5)
+# - language: 语言 (en | zh，指导 LLM 处理时的默认翻译策略)
+# - frequency_hint: 抓取频率建议 (realtime | hourly | daily | weekly)
+# - auth_required: 是否需要鉴权/Cookie (true/false, 默认 false)
+# - active: 启用开关 (true/false)
+# - description: 为什么关注该信源的核心理由 (业务备注)
+# -------------------------------------------------------------
+
+sources:
+  # ==========================================
+  # 领域一：人工智能与大模型 (Artificial Intelligence)
+  # 极致前沿：实验室一手预印本、核心开发者博客、对齐与哲学探讨
+  # ==========================================
+  - id: "arxiv_cs_ai_lg_cl"
+    name: "ArXiv - AI / ML / Computation"
+    type: "arxiv"
+    url: "cs.AI+OR+cs.LG+OR+cs.CL+OR+cs.CV"
+    domain: "AI"
+    tags: ["papers", "algorithm", "LLM"]
+    priority: 5
+    language: "en"
+    frequency_hint: "daily"
+    active: true
+    description: "追踪全球最新 AI 顶会及大厂实验室的一手预印本论文（每日过滤最硬核的几篇）"
+
+  - id: "rss_import_ai"
+    name: "Import AI by Jack Clark"
+    type: "rss"
+    url: "https://importai.substack.com/feed"
+    domain: "AI"
+    tags: ["industry", "policy", "tech"]
+    priority: 5
+    language: "en"
+    frequency_hint: "daily"
+    active: true
+    description: "Anthropic 联合创始人 Jack Clark 写的 newsletter，AI 圈内必读的高密度技术与政策洞察"
+
+  - id: "rss_latent_space"
+    name: "Latent Space"
+    type: "rss"
+    url: "https://www.latent.space/feed"
+    domain: "AI"
+    tags: ["engineering", "LLMOps", "builders"]
+    priority: 5
+    language: "en"
+    frequency_hint: "weekly"
+    active: true
+    description: "AI 工程师视角的硬核播客与文章，挖掘即将爆发的 AI 基础设施和工程实践"
+
+  - id: "rss_lesswrong_curated"
+    name: "LessWrong - Curated"
+    type: "rss"
+    url: "https://www.lesswrong.com/feed.xml?view=curated"
+    domain: "AI"
+    tags: ["alignment", "AGI", "philosophy"]
+    priority: 5
+    language: "en"
+    frequency_hint: "daily"
+    active: true
+    description: "AGI 对齐和 AI 安全发源地，Ilya 等顶级 Visionaries 经常关注和出没的极高密度理性主义社区"
+
+  - id: "rss_gwern"
+    name: "Gwern.net"
+    type: "rss"
+    url: "https://www.gwern.net/atom.xml"
+    domain: "AI"
+    tags: ["research", "deep-dive", "visionary"]
+    priority: 4
+    language: "en"
+    frequency_hint: "weekly"
+    active: true
+    description: "神级独立研究员 Gwern 的博客，以极其变态的考据癖深度分析 AI、暗网和科技趋势"
+
+  - id: "github_trending_ai"
+    name: "GitHub Trending - Python/Jupyter"
+    type: "github_trending"
+    url: "python,jupyter-notebook"
+    domain: "AI"
+    tags: ["open-source", "code", "tools"]
+    priority: 4
+    language: "en"
+    frequency_hint: "daily"
+    active: true
+    description: "通过 GitHub 趋势榜单，第一时间捕获刚被开源界关注的颠覆性 AI 工具和框架"
+
+  # ==========================================
+  # 领域二：Web3、区块链与加密货币 (Crypto & Web3)
+  # 极致前沿：底层协议研究、顶级 VC 投研、链上数据分析
+  # ==========================================
+  - id: "rss_vitalik_blog"
+    name: "Vitalik Buterin's Website"
+    type: "rss"
+    url: "https://vitalik.eth.limo/feed.xml"
+    domain: "Web3"
+    tags: ["ethereum", "protocol", "philosophy"]
+    priority: 5
+    language: "en"
+    frequency_hint: "daily"
+    active: true
+    description: "以太坊创始人 V神 博客，定义 Web3 下一个十年的核心思想与技术方向"
+
+  - id: "rss_paradigm_research"
+    name: "Paradigm Writing"
+    type: "rss"
+    url: "https://www.paradigm.xyz/rss.xml"
+    domain: "Web3"
+    tags: ["VC", "research", "crypto-economics"]
+    priority: 5
+    language: "en"
+    frequency_hint: "daily"
+    active: true
+    description: "业内最顶尖、最硬核的 Crypto VC 研究文章，深度剖析 MEV、ZK 等前沿技术架构"
+
+  - id: "web_ethresearch"
+    name: "Ethereum Research Forum"
+    type: "web_scrape"
+    url: "https://ethresear.ch/latest.json"
+    domain: "Web3"
+    tags: ["ethereum", "layer2", "consensus"]
+    priority: 5
+    language: "en"
+    frequency_hint: "daily"
+    auth_required: false
+    active: true
+    description: "以太坊核心开发者讨论底层协议的论坛，真正的“未解之谜”和“明日技术”发源地"
+
+  - id: "web_zkresearch"
+    name: "ZKResearch"
+    type: "web_scrape"
+    url: "https://zkresearch.org/latest.json"
+    domain: "Web3"
+    tags: ["ZK", "cryptography", "math"]
+    priority: 4
+    language: "en"
+    frequency_hint: "daily"
+    active: true
+    description: "专注于零知识证明(ZK)的硬核密码学与数学理论探讨社区"
+
+  - id: "web_farcaster_trending"
+    name: "Farcaster (Warpcast) Trending"
+    type: "web_scrape"
+    url: "https://api.warpcast.com/v2/trending-casts"
+    domain: "Web3"
+    tags: ["social", "alpha", "builders"]
+    priority: 5
+    language: "en"
+    frequency_hint: "hourly"
+    auth_required: true
+    active: true
+    description: "现代 Web3 极客和以太坊核心开发者的聚集地（已替代 Twitter 成为最一手 Alpha 发源地）"
+
+  - id: "rss_arthur_hayes"
+    name: "Entrepreneur in Residence (Arthur Hayes)"
+    type: "rss"
+    url: "https://entrepreneurshandbook.co/feed"
+    domain: "Web3"
+    tags: ["macro", "trading", "crypto"]
+    priority: 4
+    language: "en"
+    frequency_hint: "daily"
+    active: true
+    description: "BitMEX 创始人 Arthur Hayes 的宏观与加密货币市场深度长文，极具煽动性和前瞻性"
+
+  - id: "github_trending_web3"
+    name: "GitHub Trending - Rust/Solidity/Go"
+    type: "github_trending"
+    url: "rust,solidity,go"
+    domain: "Web3"
+    tags: ["open-source", "smart-contracts", "infrastructure"]
+    priority: 4
+    language: "en"
+    frequency_hint: "daily"
+    active: true
+    description: "监控 Web3 基础设施和智能合约生态中，刚开始被全球开发者点赞收藏的黑马项目"
+
+  # ==========================================
+  # 领域三：生物医药与合成生物学 (Biotech & Hard Science)
+  # 极致前沿：临床试验数据、顶级交叉期刊、一线药化专家
+  # ==========================================
+  - id: "rss_nature_biotech"
+    name: "Nature Biotechnology"
+    type: "rss"
+    url: "https://www.nature.com/nbt.rss"
+    domain: "Biotech"
+    tags: ["journals", "breakthrough", "science"]
+    priority: 5
+    language: "en"
+    frequency_hint: "weekly"
+    active: true
+    description: "全球最顶尖生物技术期刊，颠覆性成果（如全新的基因编辑工具）的首发阵地"
+
+  - id: "rss_fiercebiotech"
+    name: "FierceBiotech"
+    type: "rss"
+    url: "https://www.fiercebiotech.com/rss/xml"
+    domain: "Biotech"
+    tags: ["clinical-trials", "pharma", "industry"]
+    priority: 4
+    language: "en"
+    frequency_hint: "daily"
+    active: true
+    description: "医药界最权威的新闻源，能在第一时间获取 Phase II/III 临床试验的读出数据（如司美格鲁肽早期的临床表现）"
+
+  - id: "rss_in_the_pipeline"
+    name: "In the Pipeline (Derek Lowe)"
+    type: "rss"
+    url: "https://www.science.org/blogs/pipeline/feed"
+    domain: "Biotech"
+    tags: ["pharma", "drug-discovery", "chemistry"]
+    priority: 5
+    language: "en"
+    frequency_hint: "daily"
+    active: true
+    description: "医药与化学领域最权威、最敢说真话的一线行业专家博客，对 hype（炒作）具有极强的去伪存真能力"
+
+  - id: "rss_biorxiv_synthbio"
+    name: "bioRxiv - Synthetic Biology"
+    type: "rss"
+    url: "https://connect.biorxiv.org/biorxiv_xml.php?subject=synthetic_biology"
+    domain: "Biotech"
+    tags: ["synthetic-biology", "papers", "genetics"]
+    priority: 3
+    language: "en"
+    frequency_hint: "daily"
+    active: true
+    description: "追踪合成生物学与计算生物学（AI for Science）的前沿交叉实验成果预印本"
+
+  # ==========================================
+  # 领域四：前沿科技交叉、商业与社会趋势 (Broad Tech & Society)
+  # ==========================================
+  - id: "rss_hackernews_top"
+    name: "Hacker News (Top 200+ Points)"
+    type: "rss"
+    url: "https://hnrss.org/newest?points=200"
+    domain: "Tech_Biz"
+    tags: ["startups", "engineering", "society"]
+    priority: 5
+    language: "en"
+    frequency_hint: "hourly"
+    active: true
+    description: "硅谷风向标，过滤掉低质量水贴，只看被全球极客高赞的颠覆性产品、漏洞披露和深度文章。类似 OpenClaw 这种现象级项目，最初的爆发式增长极大概率是通过 HN 首页引爆的。"
+
+  - id: "rss_producthunt_top"
+    name: "Product Hunt (Daily Top)"
+    type: "rss"
+    url: "https://www.producthunt.com/feed"
+    domain: "Tech_Biz"
+    tags: ["products", "launch", "startups"]
+    priority: 4
+    language: "en"
+    frequency_hint: "daily"
+    active: true
+    description: "全球新产品首发地阵地。许多以小搏大的 AI 工具和极其轻量、具有 Viral 潜质的“车库级”开源项目（如早期的独立开发者产品）都是在这里被早期采用者发掘的。"
+
+  - id: "web_github_trending_daily"
+    name: "GitHub Trending (All Languages)"
+    type: "web_scrape"
+    url: "https://github.com/trending?since=daily"
+    domain: "Tech_Biz"
+    tags: ["open-source", "viral", "developers"]
+    priority: 5
+    language: "en"
+    frequency_hint: "daily"
+    auth_required: false
+    active: true
+    description: "全语种每日趋势大盘。像 OpenClaw 这样现象级的“24/7 Agent”或者突破性的底层框架，在引起全网讨论之前，必然会先在 Github 的 Trending 榜单上出现异常的 Star 增长斜率。"
+
+  - id: "twitter_tech_visionaries"
+    name: "Twitter/X - Tech Visionaries List"
+    type: "twitter_user"
+    url: "list:ai-crypto-visionaries"
+    domain: "Tech_Biz"
+    tags: ["alpha", "thought-leaders", "viral-news"]
+    priority: 5
+    language: "en"
+    frequency_hint: "hourly"
+    active: false
+    description: "监控特定的 X (Twitter) 大V/研究员账号。通过 Nitter 或官方 API 获取。这是极高密度但极高噪音的地方。由于 X 接口限制，MVP 阶段默认关闭，跑通后可通过 playwright 或付费 API 开启。"
+
+  - id: "rss_darpa_news"
+    name: "DARPA News"
+    type: "rss"
+    url: "https://www.darpa.mil/news-events/rss"
+    domain: "Tech_Biz"
+    tags: ["deep-tech", "military", "future"]
+    priority: 4
+    language: "en"
+    frequency_hint: "weekly"
+    active: true
+    description: "美国国防部高级研究计划局的官方动态，互联网、GPS的诞生地，这里预示着人类 20 年后的底层硬科技"
+
+  - id: "rss_semianalysis"
+    name: "SemiAnalysis"
+    type: "rss"
+    url: "https://www.semianalysis.com/feed"
+    domain: "Tech_Biz"
+    tags: ["semiconductor", "hardware", "supply-chain"]
+    priority: 5
+    language: "en"
+    frequency_hint: "daily"
+    active: true
+    description: "硅谷最硬核的半导体与 AI 算力供应链分析，比华尔街研报更早拿到晶圆厂内幕"
+
+  - id: "rss_stratechery"
+    name: "Stratechery by Ben Thompson"
+    type: "rss"
+    url: "https://stratechery.com/feed/"
+    domain: "Tech_Biz"
+    tags: ["strategy", "big-tech", "business-models"]
+    priority: 5
+    language: "en"
+    frequency_hint: "daily"
+    active: true
+    description: "科技商业战略领域的金字塔尖，深刻拆解大厂动作背后的聚合理论"

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>ai.ais.fetch.raw</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/tristan/Desktop/AIS/ais_engine/venv/bin/python</string>
+    <string>/Users/tristan/Desktop/AIS/ais_engine/pipeline.py</string>
+    <string>fetch</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/tristan/Desktop/AIS/ais_engine</string>
+
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Minute</key>
+    <integer>5</integer>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/tristan/Desktop/AIS/ais_engine/logs/scheduler_fetch.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/tristan/Desktop/AIS/ais_engine/logs/scheduler_fetch.err.log</string>
+</dict>
+</plist>

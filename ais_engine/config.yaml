@@ -1,0 +1,43 @@
+# Alpha Intelligence System (AIS) Business Configuration
+# (Non-sensitive logic settings)
+
+scoring:
+  min_alpha_score: 8.0
+  max_items_per_cycle: 15
+
+generation:
+  worker_count: 2
+  score_timeout_sec: 12
+  generate_timeout_sec: 35
+  score_max_retries: 1
+  generate_max_retries: 2
+  retry_backoff_sec: 2
+
+# Legacy: used by the PlaintextRenderer fallback (local-archive mode) until
+# every subscriber is migrated into the SQLite store. Once the orchestrator
+# always dispatches via real Publishers, this section can be removed.
+delivery:
+  batch_byte_limit: 1800
+  separator: "\n━━━━━━━━━━━━━━\n"
+
+# v0.1 publisher registry. Each Publisher reads its own credentials from env
+# vars named below — never put secrets in this file.
+publishers:
+  telegram:
+    enabled: true
+    bot_token_env: TELEGRAM_BOT_TOKEN
+    max_chars: 4096
+  email:
+    enabled: true
+    transport: resend                # "resend" | "smtp"
+    api_key_env: RESEND_API_KEY
+    from_env: AIS_EMAIL_FROM         # e.g. "AIS <pulse@your-domain.com>"
+
+# On-demand translation (Phase 3).
+i18n:
+  default_target_langs: ["zh", "en"]
+  translation_cache_dir: data/translations
+
+# SQLite subscribers store path (relative to ais_engine/).
+subscribers:
+  db_path: data/subscribers.db

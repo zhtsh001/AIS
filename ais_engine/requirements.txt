@@ -1,0 +1,7 @@
+# Reconstructed from imports; original dependency versions are unknown.
+requests>=2.31,<3
+PyYAML>=6,<7
+python-dotenv>=1,<2
+feedparser>=6,<7
+arxiv>=2,<3
+beautifulsoup4>=4,<5

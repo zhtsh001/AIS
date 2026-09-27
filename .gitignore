@@ -1,0 +1,32 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.claude/
+.codex/
+.agents/
+
+# Python environments and caches
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pycache/
+
+# Runtime state and generated content
+logs/
+*.log
+data/
+test_outputs/
+*.db
+*.sqlite*
+
+# Local recovery evidence and archives
+ais_engine/recovery/*
+!ais_engine/recovery/RECOVERY_REPORT.md
+*.zip
+*.tar.gz
+.DS_Store

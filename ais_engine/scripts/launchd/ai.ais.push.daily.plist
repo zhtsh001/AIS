@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>ai.ais.push.daily</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/tristan/Desktop/AIS/ais_engine/venv/bin/python</string>
+    <string>/Users/tristan/Desktop/AIS/ais_engine/pipeline.py</string>
+    <string>publish-daily</string>
+    <string>--scheduled</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/tristan/Desktop/AIS/ais_engine</string>
+
+  <!-- Run every 5 minutes; script itself enforces Beijing 08:08 and once-per-day -->
+  <key>StartInterval</key>
+  <integer>300</integer>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/tristan/Desktop/AIS/ais_engine/logs/scheduler_push_daily.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/tristan/Desktop/AIS/ais_engine/logs/scheduler_push_daily.err.log</string>
+</dict>
+</plist>
